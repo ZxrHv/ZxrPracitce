@@ -1,0 +1,30 @@
+leetcode 199
+给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+class Solution {
+    vector<int> ans;
+public:
+    vector<int> rightSideView(TreeNode* root) 
+    {
+        dfs(root,0);//从第0层也就是根节点开始遍历
+        return ans;
+    }
+    void dfs(TreeNode *root,int depth)
+    {
+        if(!root)
+        {
+            return;//根据实例3，如果输入的是空数组，返回空
+        }
+        if(ans.size() == depth)
+        {
+            ans.push_back(root->val);
+        }
+        if(root->right)//优先right，最后right遍历结束后有left就遍历一次left
+        {
+            dfs(root->right,depth+1);
+        }
+        if(root ->left)
+        {
+            dfs(root->left,depth+1);
+        }
+    }
+};
